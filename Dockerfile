@@ -38,7 +38,6 @@ RUN adduser --disabled-password --gecos "" ubuntu               && \
     echo "ubuntu ALL=(ALL) NOPASSWD: ALL" >>  /etc/sudoers
 USER ubuntu
 
-
 # configure AiiDA
 WORKDIR /home/ubuntu/
 COPY configure_aiida.sh ./

@@ -11,6 +11,17 @@ sudo -u postgres psql -d template1 -c "CREATE USER aiida WITH PASSWORD 'aiida_db
 sudo -u postgres psql -d template1 -c "CREATE DATABASE aiidadb OWNER aiida;"
 sudo -u postgres psql -d template1 -c "GRANT ALL PRIVILEGES ON DATABASE aiidadb to aiida;"
 
+# download and import aiida db dump
+wget https://storage.googleapis.com/oles_stuff/aiidadb.sql.gz
+gunzip aiidadb.sql.gz
+sudo -u postgres psql -d aiidadb -f aiidadb.sql
+rm aiidadb.sql
+
+# download and import aiida repository
+wget https://storage.googleapis.com/oles_stuff/aiida_repository.tgz
+tar -xzf aiida_repository.tgz
+rm aiida_repository.tgz
+
 # create aiida profile
 verdi setup                                 \
       --non-interactive                     \
@@ -42,10 +53,11 @@ if [ ! -e ~/.ipython/profile_default/ipython_config.py ]; then
    echo "]"                                       >> ~/.ipython/profile_default/ipython_config.py
 fi
 
+# TODO reenable once aiida import/export works
 # download and import aiida demo database
-wget https://storage.googleapis.com/oles_stuff/empa_surfaces_demo_db.aiida
-verdi import empa_surfaces_demo_db.aiida
-rm empa_surfaces_demo_db.aiida
+#wget https://storage.googleapis.com/oles_stuff/empa_surfaces_demo_db.aiida
+#verdi import empa_surfaces_demo_db.aiida
+#rm empa_surfaces_demo_db.aiida
 
 # stop postgreSQL properly
 sudo service postgresql stop

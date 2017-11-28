@@ -57,10 +57,13 @@ RUN wget https://github.com/materialscloud-org/mc-aiida/archive/master.zip && \
     rm master.zip                                                          && \
     mv mc-aiida-master aiida
 
-# Launch Notebook server
 WORKDIR /home/ubuntu/
-EXPOSE 8888
-COPY start.sh ./
-CMD ["./start.sh"]
+COPY start_demo.ipynb ./
+
+# # Launch Notebook server
+# WORKDIR /home/ubuntu/
+# EXPOSE 8888
+# COPY start.sh ./
+# CMD ["./start.sh"]
 
 # EOF

@@ -60,10 +60,9 @@ RUN wget https://github.com/materialscloud-org/mc-aiida/archive/master.zip && \
 WORKDIR /home/ubuntu/
 COPY start_demo.ipynb ./
 
-# # Launch Notebook server
-# WORKDIR /home/ubuntu/
-# EXPOSE 8888
-# COPY start.sh ./
-# CMD ["./start.sh"]
+# Launch Notebook server (will be ignored by binder)
+WORKDIR /home/ubuntu/
+EXPOSE 8888
+CMD ["jupyter-notebook", "--ip=0.0.0.0", "--no-browser", "--NotebookApp.token=''"]
 
 # EOF

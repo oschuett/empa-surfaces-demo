@@ -42,13 +42,12 @@ if [ ! -e ~/.ipython/profile_default/ipython_config.py ]; then
    echo "]"                                       >> ~/.ipython/profile_default/ipython_config.py
 fi
 
-# download import AiiDA demo database
-wget http://ole.schuett.name/empa_surfaces_demo_db.aiida
+# download and import aiida demo database
+wget https://storage.googleapis.com/oles_stuff/empa_surfaces_demo_db.aiida
 verdi import empa_surfaces_demo_db.aiida
 rm empa_surfaces_demo_db.aiida
 
 # stop postgreSQL properly
 sudo service postgresql stop
-
 
 #EOF

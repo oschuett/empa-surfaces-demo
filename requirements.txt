@@ -1,0 +1,17 @@
+#
+# required packages ============================================================
+#
+ipython==5.4.1  # IPython 6 requires Python 3.3 or later
+notebook
+aiida
+aiida-cp2k
+ase
+seekpath
+ipywidgets
+nglview
+bqplot
+matplotlib
+numpy
+appmode
+
+#EOF

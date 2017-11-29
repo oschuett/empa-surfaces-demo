@@ -33,15 +33,13 @@ RUN jupyter nbextension     enable  --sys-prefix --py widgetsnbextension   && \
     jupyter nbextension     enable  --sys-prefix --py appmode              && \
     jupyter serverextension enable  --sys-prefix --py appmode
 
+#update reentry cache
+RUN reentry scan
+
 # create ubuntu user with sudo powers
 RUN adduser --disabled-password --gecos "" ubuntu               && \
     echo "ubuntu ALL=(ALL) NOPASSWD: ALL" >>  /etc/sudoers
 USER ubuntu
-
-# configure AiiDA
-WORKDIR /home/ubuntu/
-COPY configure_aiida.sh ./
-RUN ./configure_aiida.sh
 
 # download notebooks
 RUN mkdir /home/ubuntu/apps
@@ -58,6 +56,7 @@ RUN wget https://github.com/materialscloud-org/mc-aiida/archive/master.zip && \
 
 WORKDIR /home/ubuntu/
 COPY start_demo.ipynb ./
+RUN sudo chown ubuntu:ubuntu ./start_demo.ipynb
 
 # Launch Notebook server (will be ignored by binder)
 WORKDIR /home/ubuntu/

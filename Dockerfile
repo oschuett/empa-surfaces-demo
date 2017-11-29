@@ -16,12 +16,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
             sudo                 \
             wget                 \
             ca-certificates      \
-            unzip                \
   && rm -rf /var/lib/apt/lists/*
 
 # install Python packages
 COPY requirements.txt /opt/
-RUN pip2 install -r /opt/requirements.txt
+RUN pip2 install --no-cache-dir -r /opt/requirements.txt
 
 # active ipython kernels
 RUN python2 -m ipykernel install
@@ -46,15 +45,15 @@ RUN ./configure_aiida.sh
 # download notebooks
 RUN mkdir /home/ubuntu/apps
 WORKDIR /home/ubuntu/apps
-RUN wget https://github.com/cpignedoli/mc-empa-surfaces/archive/master.zip && \
-    unzip master.zip                                                       && \
-    rm master.zip                                                          && \
-    mv mc-empa-surfaces-master surfaces
+RUN wget https://github.com/cpignedoli/mc-empa-surfaces/archive/v0.0.1.tar.gz && \
+    tar -xvzf v0.0.1.tar.gz                                                    && \
+    rm v0.0.1.tar.gz                                                          && \
+    mv mc-empa-surfaces-0.0.1 surfaces
 
-RUN wget https://github.com/materialscloud-org/mc-aiida/archive/master.zip && \
-    unzip master.zip                                                       && \
-    rm master.zip                                                          && \
-    mv mc-aiida-master aiida
+RUN wget https://github.com/materialscloud-org/mc-aiida/archive/v0.0.1.tar.gz && \
+    tar -xvzf v0.0.1.tar.gz                                                    && \
+    rm v0.0.1.tar.gz                                                          && \
+    mv mc-aiida-0.0.1 aiida
 
 WORKDIR /home/ubuntu/
 COPY start_demo.ipynb ./
